@@ -27,16 +27,28 @@ class PhoneBook
 	{
 		i = 0;
 	}
+
+std::string check(std::string stroka)
+{
+	stroka.size();
+	if (stroka.size() >= 10)
+	{
+		stroka.erase(10);
+		stroka[9] = '.';
+	}
+	return (stroka);
+} 
+
 	void tabl()
 	{
 		int c;
 		int index;
 		for (c = 0; c < i; c++)
 		{	
-			std::cout << c << "|" << std::setw(10) << contacts[c].name;
-			std::cout <<  "|" << std::setw(10) << contacts[c].lastName;
-			std::cout <<  "|" << std::setw(10) << contacts[c].nickname;
-			std::cout <<  "|" << std::setw(10) << contacts[c].dark << std::endl;
+			std::cout << c << "|" << std::setw(10) << check(contacts[c].name);
+			std::cout <<  "|" << std::setw(10) << check(contacts[c].lastName);
+			std::cout <<  "|" << std::setw(10) << check(contacts[c].nickname);
+			std::cout <<  "|" << std::setw(10) << check(contacts[c].dark) << std::endl;
 			
 
 		}
@@ -87,11 +99,11 @@ int main()
 			std::cin >> contact.num;
 			book.addContact(contact);
 		}
-		else if (command == "SEARCH")
+		else if (command == "SEARCH" || command == "search")
 		{
 			book.tabl();			
 		}
-		else if (command == "EXIT")
+		else if (command == "EXIT" || command == "exit")
 		{
 			break ;
 		}
