@@ -24,36 +24,13 @@ public:
 
 	typedef Account		t;
 
-	static int	getNbAccounts( void )
-	{
-		return (_nbAccounts);
-	}
-	static int	getTotalAmount( void )
-	{
-		return(_totalAmount);
-	}
-	static int	getNbDeposits( void )
-	{
-		return (_totalNbDeposits);
-	}
-	static int	getNbWithdrawals( void )
-	{
-		return (_totalNbWithdrawals);
-	}
-	static void	displayAccountsInfos( void )
-	{
-		std::cout << "accounts:" << getNbAccounts() << ";";
-		std::cout << "total:" << getTotalAmount() << ";";
-		std::cout << "deposits:" << getNbDeposits() << ";";
-		std::cout << "withdrawls:" << getNbWithdrawals() << ";";
-	}
+	static int	getNbAccounts( void );
+	static int	getTotalAmount( void );
+	static int	getNbDeposits( void );
+	static int	getNbWithdrawals( void );
+	static void	displayAccountsInfos( void );
 
-	Account( int initial_deposit )
-	{
-		_accountIndex = _nbAccounts;
-		_amount = initial_deposit;
-		_nbAccounts ++;
-	}
+	Account( int initial_deposit );
 	~Account( void );
 
 	void	makeDeposit( int deposit );
