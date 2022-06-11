@@ -6,10 +6,12 @@
 /*   By: ryesenia <ryesenia@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 21:34:23 by ryesenia          #+#    #+#             */
-/*   Updated: 2022/06/03 21:34:35 by ryesenia         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:52:23 by ryesenia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# define RED "\033[38;05;203m"
+# define GREEN "\033[38;05;84m"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -18,12 +20,37 @@
 class Contact
 {
 	public:
+	void setName(std::string name);
+	void setLName(std::string lname);
+	void setNName(std::string nname);
+	void setDark(std::string dark);
+	void setPhone(std::string num);
+
+	std::string getName();
+	std::string getLName();
+	std::string getNName();
+	std::string getDark();
+	std::string getPhone();
+
+	private:
 	std::string name;
 	std::string lastName;
 	std::string nickname;
 	std::string dark;
 	std::string num;
 };
+
+void Contact::setName(std::string name){this->name = name;}
+void Contact::setLName(std::string lname){this->lastName = lname;}
+void Contact::setNName(std::string nname){this->nickname = nname;}
+void Contact::setDark(std::string dark){this->dark = dark;}
+void Contact::setPhone(std::string num){this->num = num;}
+
+std::string Contact::getName(){return this->name;}
+std::string Contact::getLName(){return this->lastName;}
+std::string Contact::getNName(){return this->nickname;}
+std::string Contact::getDark(){return this->dark;}
+std::string Contact::getPhone(){return this->num;}
 
 class PhoneBook
 {
@@ -57,10 +84,10 @@ std::string check(std::string stroka)
 		int index;
 		for (c = 0; c < i; c++)
 		{	
-			std::cout << c << "|" << std::setw(10) << check(contacts[c].name);
-			std::cout <<  "|" << std::setw(10) << check(contacts[c].lastName);
-			std::cout <<  "|" << std::setw(10) << check(contacts[c].nickname);
-			std::cout <<  "|" << std::setw(10) << check(contacts[c].dark) << std::endl;
+			std::cout << c << "|" << std::setw(10) << check(contacts[c].getName());
+			std::cout <<  "|" << std::setw(10) << check(contacts[c].getLName());
+			std::cout <<  "|" << std::setw(10) << check(contacts[c].getNName());
+			std::cout <<  "|" << std::setw(10) << check(contacts[c].getDark()) << std::endl;
 			
 
 		}
@@ -71,10 +98,10 @@ std::string check(std::string stroka)
 		}
 		else
 		{
-			std::cout << contacts[c].name << std::endl;
-			std::cout << contacts[c].lastName << std::endl;
-			std::cout << contacts[c].nickname << std::endl;
-			std::cout << contacts[c].dark << std::endl;
+			std::cout << contacts[c].getName() << std::endl;
+			std::cout << contacts[c].getLName() << std::endl;
+			std::cout << contacts[c].getNName() << std::endl;
+			std::cout << contacts[c].getDark() << std::endl;
 		}
 	}
 
@@ -92,28 +119,47 @@ int main()
 {
 	PhoneBook book;
 	Contact contact;
-	while(100)
+	
+	std::string command;
+	std::cout << RED"ПРИВЕТ ДОБРО ПОЖАЛОВАТЬ В ТВОЮ ТЕЛЕФОННУЮ КНИГУ !!!" << std::endl;
+
+	while(command != "EXIT" || command != "exit")
 	{
-		std::string command;
+		std::cout << "ВВЕДИТЕ КОММАНДУ: ADD | SEASRCH | EXIT" << std::endl;
 		std::cin >> command;
-		std::cout << command << std::endl;
 		if(command == "ADD" || command == "add")
 		{
-			std::cout << "NAME?" << std::endl;
-			std::cin >> contact.name;
-			std::cout << "LAST_NAME?" << std::endl;
-			std::cin >> contact.lastName;
-			std::cout << "NICKNAME?" << std::endl;
-			std::cin >> contact.nickname;
-			std::cout << "DARK?" << std::endl;
-			std::cin >> contact.dark;
-			std::cout << "PHONE_NUMBER?" << std::endl;
-			std::cin >> contact.num;
+			std::string n;
+			std::cout << "ENTER YOUR NAME ?" << std::endl;
+			std::cin >> n;
+			contact.setName(n);
+			std::cout << "ENTER YOUR LAST_NAME ?" << std::endl;
+			std::cin >> n;
+			contact.setLName(n);
+			std::cout << "ENTER YOUR NICKNAME ?" << std::endl;
+			std::cin >> n;
+			contact.setNName(n);
+			std::cout << "ENTER YOUR DARK ?" << std::endl;
+			std::cin >> n;
+			contact.setDark(n);
+			std::cout << "ENTER YOUR PHONE_NUMBER ?" << std::endl;
+			std::cin >> n;
+			contact.setPhone(n);
 			book.addContact(contact);
+			std::cout << "НОВЫЙ КОНТАКТ ДОБАВЛЕН" << std::endl;
+			
 		}
 		else if (command == "SEARCH" || command == "search")
 		{
-			book.tabl();			
+			int i;
+			book.tabl();
+			std::cout << "НАЙДИ ДРУГА :)))" << std::endl;
+			std::cin >> i;
+			std::cout << "First name:     " << book.contacts[i].getName() << std::endl;
+    		std::cout << "Last name:      " << book.contacts[i].getLName() << std::endl;
+    		std::cout << "Nickname:       " << book.contacts[i].getNName() << std::endl;
+    		std::cout << "Phone number:   " << book.contacts[i].getPhone() << std::endl;
+    		std::cout << "Darkest secret: " << book.contacts[i].getDark() << std::endl;
 		}
 		else if (command == "EXIT" || command == "exit")
 		{
